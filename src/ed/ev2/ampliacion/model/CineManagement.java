@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -77,51 +78,48 @@ public class CineManagement {
 		return valorRetorno;
 	}
 
-//	public boolean verificarCredencialesCliente(String nombre, String password) {
-//		boolean valorRetorno=false;
-//		String nombreLeido="";
-//		String passLeida="";
-//		
-//		try {
-//			String queryObtenerCliente=prop.getProperty(CINECLUB_DB_H2_OBTENER_CLIENTE);
+	public boolean verificarCredencialesCliente(String nombre, String password) {
+		boolean valorRetorno=false;
+		
+		try {
+			String queryObtenerCliente=prop.getProperty(CINECLUB_DB_H2_OBTENER_CLIENTE);
 //			String queryParametrizada = SqlUtilidades.prepararQuery(queryObtenerCliente, new String[] {
 //			nombre, password });					
 //			Statement stmt=conn.createStatement();
-//			ResultSet rs=stmt.executeQuery(queryParametrizada);
-//			while (rs.next()) {
-//				nombreLeido=rs.getString(1);
-//				passLeida=rs.getString(2);
-//			}
-//			if (nombre.equals(nombreLeido) && password.equals(passLeida)) {
-//				valorRetorno=true;
-//			}			
-//		} catch(SQLException e) {
-//			e.printStackTrace();
-//		}
-//		
-//		return valorRetorno;
-//	}
-
-	public boolean verificarCredencialesCliente(String nombre, String password) {
-		boolean valorRetorno = false;
-		String nombreLeido = "";
-		String passLeida = "";
-
-		String query = "SELECT * FROM cliente WHERE nombre = '" + nombre + "' AND password = '" + password + "'";
-
-		try (Statement statement = conn.createStatement()) {
-
-			ResultSet rs = statement.executeQuery(query);
-
+			PreparedStatement queryStmt=conn.prepareStatement(queryObtenerCliente);
+			queryStmt.setString(1, nombre);
+			queryStmt.setString(2, password);
+			ResultSet rs=queryStmt.executeQuery();
 			if (rs.next()) {
-				valorRetorno = true;
+				valorRetorno=true;
 			}
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
-
+		
 		return valorRetorno;
 	}
+
+//	public boolean verificarCredencialesCliente(String nombre, String password) {
+//		boolean valorRetorno = false;
+//		String nombreLeido = "";
+//		String passLeida = "";
+//
+//		String query = "SELECT * FROM cliente WHERE nombre = '" + nombre + "' AND password = '" + password + "'";
+//
+//		try (Statement statement = conn.createStatement()) {
+//
+//			ResultSet rs = statement.executeQuery(query);
+//
+//			if (rs.next()) {
+//				valorRetorno = true;
+//			}
+//		} catch(SQLException e) {
+//			e.printStackTrace();
+//		}
+//
+//		return valorRetorno;
+//	}
 
 	private String prepararQuery(String q, String[] parametros) {
 		StringBuilder sb = new StringBuilder(q);
