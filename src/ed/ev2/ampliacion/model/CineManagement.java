@@ -83,14 +83,16 @@ public class CineManagement {
 		String passLeida="";
 		
 		try {
-			String queryObtenerCliente=prop.getProperty(CINECLUB_DB_H2_OBTENER_CLIENTE);
-			String queryParametrizada = SqlUtilidades.prepararQuery(queryObtenerCliente, new String[] {
-					nombre, password });
+//			String queryObtenerCliente=prop.getProperty(CINECLUB_DB_H2_OBTENER_CLIENTE);
+//			String queryParametrizada = SqlUtilidades.prepararQuery(queryObtenerCliente, new String[] {
+//			nombre, password });
+			String queryObtenerCliente="SELECT * FROM cliente WHERE nombre = '" + nombre + "' AND password = '" + password + "'";
+					
 			Statement stmt=conn.createStatement();
-			ResultSet rs=stmt.executeQuery(queryParametrizada);
+			ResultSet rs=stmt.executeQuery(queryObtenerCliente);
 			while (rs.next()) {
-				nombreLeido=rs.getString(1);
-				passLeida=rs.getString(2);
+				nombreLeido=rs.getString(2);
+				passLeida=rs.getString(4);
 			}
 			if (nombre.equals(nombreLeido) && password.equals(passLeida)) {
 				valorRetorno=true;

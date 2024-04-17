@@ -89,10 +89,6 @@ public class LoginView extends JFrame implements ActionListener {
 		}		
 	}
 
-	/*
-	 * esto es un comentario de varias lineas
-	 * 
-	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnEnviar) {
