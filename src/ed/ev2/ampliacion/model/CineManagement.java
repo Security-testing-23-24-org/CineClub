@@ -107,17 +107,13 @@ public class CineManagement {
 		String nombreLeido = "";
 		String passLeida = "";
 
-		String query = "SELECT * FROM cliente WHERE nombre = '" + nombre + "' AND pass = '" + password + "'";
+		String query = "SELECT * FROM cliente WHERE nombre = '" + nombre + "' AND password = '" + password + "'";
 
 		try (Statement statement = conn.createStatement()) {
 
 			ResultSet rs = statement.executeQuery(query);
 
-			while (rs.next()) {
-				nombreLeido = rs.getString(1);
-				passLeida = rs.getString(2);
-			}
-			if (nombre.equals(nombreLeido) && password.equals(passLeida)) {
+			if (rs.next()) {
 				valorRetorno = true;
 			}
 		} catch(SQLException e) {
