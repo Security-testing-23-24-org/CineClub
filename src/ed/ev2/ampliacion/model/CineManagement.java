@@ -102,7 +102,7 @@ public class CineManagement {
 //		return valorRetorno;
 //	}
 
-	public boolean verificarCredencialesCliente(String nombre, String password) throws SQLException {
+	public boolean verificarCredencialesCliente(String nombre, String password) {
 		boolean valorRetorno = false;
 		String nombreLeido = "";
 		String passLeida = "";
@@ -120,6 +120,8 @@ public class CineManagement {
 			if (nombre.equals(nombreLeido) && password.equals(passLeida)) {
 				valorRetorno = true;
 			}
+		} catch(SQLException e) {
+			e.printStackTrace();
 		}
 
 		return valorRetorno;
