@@ -121,7 +121,7 @@ public class GestionCine {
 			String mensaje="Todas las butacas del cine se encuentran disponibles!!!";
 			throw new CineException(mensaje);
 		} catch (IOException e) {
-			e.printStackTrace();
+
 		}
 		
 	}
@@ -140,7 +140,7 @@ public class GestionCine {
 			
 			pw.close();
 		} catch(IOException e) {
-			e.printStackTrace();
+
 		}
 	}	
 	

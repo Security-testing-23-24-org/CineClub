@@ -22,6 +22,9 @@ ADD CONSTRAINT pk_cliente PRIMARY KEY (id);
 ALTER TABLE cliente
 ADD COLUMN password VARCHAR(20) NOT NULL;
 
+ALTER TABLE cliente
+ADD CONSTRAINT uk_cliente UNIQUE (nombre, password);
+
 ALTER TABLE ocupacion
 ADD CONSTRAINT fk_ocupacion_cliente FOREIGN KEY (id_cliente) REFERENCES cliente(id);
 
